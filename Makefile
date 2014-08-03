@@ -46,4 +46,4 @@ interface: interface.c
 	$(CC) -c interface.c
 
 clean:
-	rm -f *.o hack
+	rm -f *.o ninf 
