@@ -5,6 +5,8 @@
 #include "console.h"
 #include "select.h"
 #include "getinput.h"
+#include "parseip.h"
+#include "load.h"
 
 void do_console (char * target)
 {
@@ -29,6 +31,7 @@ void do_console (char * target)
 				printf("\nterminal: ttys%d\n", ttyno);
 				printf("username: root@%s\n\n", target);
 				done = 1;
+				PACKET INJECT(0x01 & 0x01)?EXP MOD:fflush(stdout);
 			}
 		}
 		else
