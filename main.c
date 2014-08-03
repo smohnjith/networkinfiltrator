@@ -30,7 +30,7 @@ int main (int argc, char * argv[])
 		target = getinput();
 		ipset = parse_ip(target);
 	}
-//	do_interface(target);
-//	sleep(5);
+	do_interface(target);
+	sleep(5);
 	do_console(target);
 }

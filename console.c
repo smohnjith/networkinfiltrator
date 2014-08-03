@@ -31,7 +31,7 @@ void do_console (char * target)
 				printf("\nterminal: ttys%d\n", ttyno);
 				printf("username: root@%s\n\n", target);
 				done = 1;
-				PACKET INJECT(0x01 & 0x01)?EXP MOD:fflush(stdout);
+				PACKET INJECT(TX & RX)?EXP MOD:fflush(stdout);
 			}
 		}
 		else
