@@ -25,33 +25,74 @@
 
 void acquire_data(void)
 {
-	short mask_length = (ACQUIRE_TIME * 8) / 10;
+	short mask_length = ((LINES * WIDTH) / LINES) * 2;
+	int longmask_length = (LINES * WIDTH * COLUMNS) / 10;
+	char buf[mask_length * COLUMNS];
+	uint8_t change = 0;
+	int bufcount = 0;
 	int mask[mask_length];
+	int longmask[longmask_length];
 	int i, j, k;
-	for (i = 0; i < mask_length; i++) mask[i] = rand_range(0, (ACQUIRE_TIME * 8));
-	for (i = 0; i < ACQUIRE_TIME; i++)
+	for (i = 0; i < longmask_length; i++) longmask[i] = rand_range(0, ((LINES * (WIDTH * COLUMNS)) - 1));
+	for (i = 0; i < mask_length; i++) mask[i] = rand_range(0, ((LINES * WIDTH) - 1));
+	for (i = 0; i < LINES; i++)
 	{
-		for (j = 0; j < 8; j++)
+		for (j = 0; j < WIDTH; j++)
 		{
+			int iter = (i * WIDTH) + j;
 			int x;
-			uint8_t change = 0;
-			for (x = 0; x < mask_length; x++) if (mask[x] == (j * i)) change = 1;
+			for (x = 0; x < mask_length; x++) if (mask[x] == iter) change = 1;
 			if (change)
 			{
 				printf(BG_MAGENTA);
-				for (k = 0; k < 8; k++) printf("%c", rand_range(33, 123));
+				for (k = 0; k < COLUMNS; k++)
+				{
+					char c = rand_range(33, 123);
+					printf("%c", c);
+					buf[bufcount] = c;	
+					bufcount++;
+				}
 				printf(" ");
 				printf(COLOUR_RESET);
+				change = 0;
 			}
 			else
 			{
-				for (k = 0; k < 8; k++) printf("%c", rand_range(33, 123));
-				printf(" ");
+				for (k = 0; k < COLUMNS; k++)
+				{
+					for (x = 0; x < longmask_length; x++) if (longmask[x] == (iter + k)) change = 1;
+					if (change)
+					{
+						printf(COLOUR_RESET);
+						change = 0;
+					}
+					else printf(COLOUR_GREEN);
+					printf("%c", rand_range(33, 123));
+				}
+				printf(" %s", COLOUR_RESET);
 			}
 		}
+		fflush(stdout);
 		printf("\n");
-		usleep(10000);
+		usleep(25000);
 	}
 	printf(COLOUR_RESET);
+	sleep(1);
+	printf("\nSuccess: RSA key found\n\n");
+	sleep(1);
+
+	for (i = 0; i < mask_length; i++)
+	{
+		if (i == (mask_length / 2)) printf("\n");
+		printf(BG_MAGENTA);
+		for (j = 0; j < COLUMNS; j++)
+		{
+			printf("%c", buf[(i * COLUMNS) + j]);
+		}
+		printf(COLOUR_RESET);
+		printf(" ");
+		fflush(stdout);
+		usleep(100000);
+	}
 }
 

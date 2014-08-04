@@ -25,5 +25,6 @@
 #define COLOUR_YELLOW  "\x1b[33m"
 #define COLOUR_RESET   "\x1b[0m"
 #define BG_MAGENTA     "\x1b[45m"
+#define BG_GREEN       "\x1b[42m"
 
 #endif

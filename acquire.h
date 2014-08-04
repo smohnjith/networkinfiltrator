@@ -19,7 +19,9 @@
 #ifndef ACQUIRE_H_
 #define ACQUIRE_H_
 
-#define ACQUIRE_TIME 1000
+#define WIDTH 8
+#define COLUMNS 8
+#define LINES 1000 //must be larger than AND a multiple of 1000
 
 void acquire_data(void);
 
