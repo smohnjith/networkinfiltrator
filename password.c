@@ -27,7 +27,7 @@ extern char * charset;
 
 void do_password()
 {
-	int c_count, n_count, n;
+	int c_count, n_count, n, j;
 	char out;
 	char *s = malloc(PASSWD_LENGTH);
 	for (c_count = 0; c_count < PASSWD_LENGTH; c_count++)
@@ -39,7 +39,7 @@ void do_password()
 			out = rand_range(0, 15);
 			printf("%c", charset[out]);
 			fflush(stdout);
-			usleep(25000);
+			usleep(50000);
 			printf("\b");
 			fflush(stdout);
 		}
@@ -48,9 +48,23 @@ void do_password()
 		s[c_count] = charset[out];
 	}
 	sleep(1);
-	for (c_count = 0; c_count < PASSWD_LENGTH; c_count++) printf("\b");
-	printf("%s%s\nSuccess!%s\n", COLOUR_GREEN, s, COLOUR_RESET);
+	clr(PASSWD_LENGTH);
+	printf("%s%s%s", COLOUR_GREEN, s, COLOUR_RESET);
+	fflush(stdout);
+	usleep(500000);
+	for (n = 0; n < 3; n++)
+	{
+		clr(PASSWD_LENGTH);
+		printf("%s%s%s", BG_MAGENTA, s, COLOUR_RESET);
+		fflush(stdout);
+		usleep(500000);
+		clr(PASSWD_LENGTH);
+		printf("%s%s%s", COLOUR_GREEN, s, COLOUR_RESET);
+		fflush(stdout);
+		usleep(500000);
+	}
+	printf("\n%sSuccess!%s\n\n", COLOUR_GREEN, COLOUR_RESET);
 	free(s);
-	usleep(250000);
+	sleep(1);
 }
 
