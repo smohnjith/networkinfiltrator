@@ -1,8 +1,8 @@
-A simple 'make' is all that is required to compile network infiltrator.
-Output is an executable named 'ninf'.
+A simple 'make' is all that is required to compile.
+Output is an executable named 'hack'.
 Execute with no arguments, i.e.
 
-./ninf
+./hack
 
 After executing you will be prompted for an IP address. Enter your
 target IP address, and the process will begin.
