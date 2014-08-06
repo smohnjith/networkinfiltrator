@@ -25,7 +25,6 @@
 #include "parseip.h"
 #include "disclaim.h"
 #include "getinput.h"
-#include "select.h"
 #include "scan.h"
 #include "colour.h"
 #include "console.h"

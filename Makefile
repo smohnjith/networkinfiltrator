@@ -1,7 +1,7 @@
-all: ninf
+all: hack
 
-ninf: interface.o console.o acquire.o connect.o disclaim.o getinput.o parseip.o password.o progress.o scan.o select.o wait.o load.o main.o
-	$(CC) interface.o console.o acquire.o connect.o disclaim.o getinput.o parseip.o password.o progress.o scan.o select.o wait.o load.o main.o -o ninf
+hack: interface.o console.o acquire.o connect.o disclaim.o getinput.o parseip.o password.o progress.o scan.o select.o wait.o load.o main.o
+	$(CC) interface.o console.o acquire.o connect.o disclaim.o getinput.o parseip.o password.o progress.o scan.o select.o wait.o load.o main.o -o hack
 
 main: main.c
 	$(CC) -c main.c
@@ -46,4 +46,4 @@ interface: interface.c
 	$(CC) -c interface.c
 
 clean:
-	rm -f *.o ninf 
+	rm -f *.o hack 
