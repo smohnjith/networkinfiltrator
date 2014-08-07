@@ -21,10 +21,10 @@
 
 #define DISCLAIMER \
 "           --------------------WARNING--------------------\n\n\
-The creators of this freely distributed software shall accept no\n\
-responsibility, legal or otherwise, for any illegal or antisocial behaviour\n\
-conducted using this software. Please respect your country's privacy & data\n\
-protection laws.\n\n\
+             The creators of this software shall accept no\n\
+           responsibility, legal or otherwise, for any illegal\n\
+          or antisocial behaviour conducted using this software.\n\
+      Please respect your country's privacy & data protection laws.\n\n\
            --------------------WARNING--------------------\n"
 
 void disclaimer(void);
