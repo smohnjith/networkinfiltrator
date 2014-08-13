@@ -29,7 +29,7 @@ void do_password()
 {
 	int c_count, n_count, n, j;
 	char out;
-	char *s = malloc(PASSWD_LENGTH);
+	char *s = malloc(PASSWD_LENGTH + 1);
 	for (c_count = 0; c_count < PASSWD_LENGTH; c_count++)
 	{
 		printf(COLOUR_RED);
@@ -44,22 +44,20 @@ void do_password()
 			fflush(stdout);
 		}
 		printf(COLOUR_YELLOW);
-		printf("%c", charset[out]);
+		printf("%c\007", charset[out]);
 		s[c_count] = charset[out];
 	}
+	s[PASSWD_LENGTH] = '\0';
 	sleep(1);
-	clr(PASSWD_LENGTH);
-	printf("%s%s%s", COLOUR_GREEN, s, COLOUR_RESET);
+	printf("\r%s%s%s", COLOUR_GREEN, s, COLOUR_RESET);
 	fflush(stdout);
 	usleep(500000);
 	for (n = 0; n < 3; n++)
 	{
-		clr(PASSWD_LENGTH);
-		printf("%s%s%s", BG_MAGENTA, s, COLOUR_RESET);
+		printf("\r%s%s%s", BG_MAGENTA, s, COLOUR_RESET);
 		fflush(stdout);
 		usleep(500000);
-		clr(PASSWD_LENGTH);
-		printf("%s%s%s", COLOUR_GREEN, s, COLOUR_RESET);
+		printf("\r%s%s%s", COLOUR_GREEN, s, COLOUR_RESET);
 		fflush(stdout);
 		usleep(500000);
 	}

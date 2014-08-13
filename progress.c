@@ -59,12 +59,12 @@ void progress_bar (int high, int low)
 			on = 1;
 		}
 		spacecount--;
-		clr(length);
+		printf("\r");
 		if (i == 100) last = frame;
 		free(frame);
 		free(percentage);
 	}
 	printf(COLOUR_RESET);
-	printf("%s%s%s\n\n", COLOUR_GREEN, last, COLOUR_RESET);
+	printf("\n%s%s%s\n\n", COLOUR_GREEN, last, COLOUR_RESET);
 }
 
