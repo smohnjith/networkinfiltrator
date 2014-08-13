@@ -50,7 +50,7 @@ void do_console (char * target)
 				printf("username: root@%s\n\n", target);
 				done = 1;
 				sleep(2);
-				PACKET INJECT(TX & RX)?EXP MOD:fflush(stdout);
+				ORBV AILK(TX & RX)?EXP MOD:fflush(stdout);
 			}
 		}
 		else
