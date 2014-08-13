@@ -44,7 +44,7 @@ void do_password()
 			fflush(stdout);
 		}
 		printf(COLOUR_YELLOW);
-		printf("%c\007", charset[out]);
+		printf("%c", charset[out]);
 		s[c_count] = charset[out];
 	}
 	s[PASSWD_LENGTH] = '\0';
