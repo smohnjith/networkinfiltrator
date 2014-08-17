@@ -21,21 +21,30 @@ installing Make and GCC like this:
 
 ----------------Linux/Unix----------------
 
-In a terminal, type the following commands:
+Open up a terminal.
 
-	sudo apt-get install make
-	sudo apt-get install gcc
+On Debian or Ubuntu, type:
+
+	sudo apt-get install gcc make binutils libc-dev
+
+	
+On Fedora or Red Hat, type:
+
+	sudo yum install gcc make binutils glibc-devel
+
+------------------------------------------
 
 
 ----------------Mac OSX----------------
 
-	download MacPorts: http://www.macports.org
+Download Xcode, which will install all the tools you need
+to compile C programs from the terminal.
 
-In a terminal, type the following commands:
+Xcode is FREE to download.
 
-	sudo port install make
-	sudo port install gcc	
+https://developer.apple.com/xcode/downloads/
+
+---------------------------------------
 
 
-
-After downloading Make and GCC, try steps 3 and 4 again.
+After downloading the necessary tools, try steps 3 and 4 again.
