@@ -71,8 +71,8 @@ void acquire_data(void)
 				}
 				printf(" %s", COLOUR_RESET);
 			}
+			fflush(stdout);
 		}
-		fflush(stdout);
 		printf("\n");
 		usleep(25000);
 	}
