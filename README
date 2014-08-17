@@ -11,9 +11,12 @@ Will only compile on Linux/Unix systems (tested on Mac OS X, Debian & Ubuntu)
 	make
 
 4. The output will be an executable called 'ninf' in the same
-   directory. Execute it like this:
+   directory. Execute it with no arguments, like this:
 
 	./ninf
+
+You will then be prompted for an IP address. Provide one, and Network
+Infiltrator will do the rest.
 
 
 note: you must have Make and GCC installed. If the above fails then try
