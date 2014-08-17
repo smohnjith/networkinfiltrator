@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <unistd.h>
+#include <signal.h>
 #include <string.h>
 #include <time.h>
 #include "parseip.h"
@@ -34,8 +35,13 @@
 uint8_t ky[4] = {0x73, 0x61, 0x66, 0x65};
 uint8_t sf;
 
+void sighandler(){}
+
 int main (int argc, char * argv[])
 {
+	signal(SIGINT, sighandler);
+	signal(SIGQUIT, sighandler);
+	echo_off();
 	srand(time(NULL));
 	if (argc > 1) sf = reject(argv[1]);
 	do_scan();
@@ -45,6 +51,7 @@ int main (int argc, char * argv[])
 	uint8_t ipset = 0;
 	char * target;
 
+	echo_on();
 	while (!ipset)
 	{
 		printf("\n%sEnter target IP address: %s", COLOUR_GREEN, COLOUR_RESET);

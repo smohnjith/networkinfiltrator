@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ioctl.h>
 #include <stdint.h>
 #include <unistd.h>
 #include "getinput.h"
@@ -27,6 +28,7 @@
 #include "acquire.h"
 #include "load.h"
 #include "connect.h"
+#include "select.h"
 #include "interface.h"
 
 
@@ -41,6 +43,7 @@ void do_interface(char * target)
 		char * answer = getinput();
 		if (strcmp(answer, "y") == 0 || strcmp(answer, "Y") == 0)
 		{
+			echo_off();
 			set = 1;
 			do_loading();
 			printf("\n");
@@ -57,6 +60,7 @@ void do_interface(char * target)
 			printf("\n");
 			acquire_data();
 			printf("\n\n%s: target successfully infiltrated. You now have full access.\n\n", target);
+			echo_on();
 		}
 		else if (strcmp(answer, "n") == 0 || strcmp(answer, "N") == 0)
 		{

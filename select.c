@@ -17,12 +17,16 @@
  */
 
 #include <stdio.h>
+#include <termios.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
 #include "select.h"
 
 extern uint8_t ky[4];
+
+uint8_t echo = 1;
+struct termios old, new;
 
 int rand_range(int lower, int upper)
 {
@@ -35,6 +39,19 @@ int rand_range(int lower, int upper)
 	}
 	while (retval > limit);
 	return (retval + lower);
+}
+
+void echo_off()
+{
+	(void) tcgetattr(fileno (stdout), &old);
+	new = old;
+	new.c_lflag &= ~ECHO;
+	(void) tcsetattr(fileno(stdout), TCSAFLUSH, &new);
+}
+
+void echo_on()
+{
+	(void) tcsetattr(fileno(stdout), TCSAFLUSH, &old);
 }
 
 int reject(char * in)
