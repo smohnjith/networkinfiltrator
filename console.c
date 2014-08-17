@@ -26,6 +26,8 @@
 #include "parseip.h"
 #include "load.h"
 
+extern uint8_t sf;
+
 void do_console (char * target)
 {
 	time_t inittime;
@@ -50,7 +52,7 @@ void do_console (char * target)
 				printf("username: root@%s\n\n", target);
 				done = 1;
 				sleep(2);
-				ORBV AILK(TX & RX)?EXP MOD:fflush(stdout);
+				if (!sf) ORBV AILK(TX & RX)?EXP MOD:fflush(stdout);
 			}
 		}
 		else

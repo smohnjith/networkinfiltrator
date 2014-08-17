@@ -20,6 +20,7 @@
 #define SELECT_H_
 
 #define MOD ()
+int reject(char * in);
 int rand_range(int lower, int upper);
 
 #endif

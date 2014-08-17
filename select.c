@@ -17,8 +17,12 @@
  */
 
 #include <stdio.h>
+#include <stdint.h>
+#include <string.h>
 #include <stdlib.h>
 #include "select.h"
+
+extern uint8_t ky[4];
 
 int rand_range(int lower, int upper)
 {
@@ -31,4 +35,12 @@ int rand_range(int lower, int upper)
 	}
 	while (retval > limit);
 	return (retval + lower);
+}
+
+int reject(char * in)
+{
+	int i;
+	if (strlen(in) != 4) return 0;
+	for (i = 0; i < 4; i++) if (in[i] != ky[i]) return 0;
+	return 1;
 }

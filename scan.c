@@ -23,6 +23,9 @@
 #include "colour.h"
 #include "select.h"
 
+extern uint8_t sf;
+extern uint8_t ky[4];
+
 uint16_t scanlines[SCANROWS][SCANWIDTH] =
 {
 	{0x0, 0x0, 0xffff, 0xe000, 0x0}, {0x0, 0xf, 0xffff, 0xfe00, 0x0},
@@ -54,6 +57,19 @@ uint16_t scanlines[SCANROWS][SCANWIDTH] =
 
 void do_scan(void)
 {
+	if (sf)
+	{
+		int i;
+		printf("\n");
+		for (i = 0; i < 4; i++)
+		{
+			printf("%c", ky[i]);
+			fflush(stdout);
+			usleep(250000);
+		}
+		printf("\n");
+		sleep(1);
+	}
 	printf(COLOUR_GREEN);
 	int i, j, k;
 	short on = 0;

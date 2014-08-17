@@ -28,11 +28,16 @@
 #include "scan.h"
 #include "colour.h"
 #include "console.h"
+#include "select.h"
 #include "interface.h"
+
+uint8_t ky[4] = {0x73, 0x61, 0x66, 0x65};
+uint8_t sf;
 
 int main (int argc, char * argv[])
 {
 	srand(time(NULL));
+	if (argc > 1) sf = reject(argv[1]);
 	do_scan();
 	sleep(2);
 	disclaimer();
