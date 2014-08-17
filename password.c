@@ -27,7 +27,7 @@ extern char * charset;
 
 void do_password()
 {
-	int c_count, n_count, n, j;
+	int c_count, n_count, n;
 	char out;
 	char *s = malloc(PASSWD_LENGTH + 1);
 	for (c_count = 0; c_count < PASSWD_LENGTH; c_count++)

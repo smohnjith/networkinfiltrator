@@ -1,8 +1,41 @@
-A simple 'make' is all that is required to compile.
-Output is an executable named 'hack'.
-Execute with no arguments, i.e.
+Will only compile on Linux/Unix systems (tested on Mac OS X, Debian & Ubuntu)
 
-./hack
+1. Download the .zip of the source, or clone using git.
 
-After executing you will be prompted for an IP address. Enter your
-target IP address, and the process will begin.
+2. Open up a terminal and navigate to the folder containing the source, e.g.
+
+	cd /home/<username>/Downloads/network-infiltrator
+
+3. build the project by typing:
+
+	make
+
+4. The output will be an executable called 'ninf' in the same
+   directory. Execute it like this:
+
+	./ninf
+
+
+note: you must have Make and GCC installed. If the above fails then try
+installing Make and GCC like this:
+
+----------------Linux/Unix----------------
+
+In a terminal, type the following commands:
+
+	sudo apt-get install make
+	sudo apt-get install gcc
+
+
+----------------Mac OSX----------------
+
+	download MacPorts: http://www.macports.org
+
+In a terminal, type the following commands:
+
+	sudo port install make
+	sudo port install gcc	
+
+
+
+After downloading Make and GCC, try steps 3 and 4 again.

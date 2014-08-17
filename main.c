@@ -37,7 +37,6 @@ int main (int argc, char * argv[])
 	sleep(2);
 	disclaimer();
 
-	uint8_t set = 0;
 	uint8_t ipset = 0;
 	char * target;
 

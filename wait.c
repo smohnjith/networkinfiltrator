@@ -24,7 +24,6 @@
 void do_wait(char * msg, int n)
 {
 	int i, j;
-	short length = (strlen(msg) + 7);
 	char bar[4] = {'-', '\\', '|', '/'};
 	printf("%s... (", msg);
 	for (i = 0; i < n; i++)
