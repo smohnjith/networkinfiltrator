@@ -34,9 +34,11 @@
 
 void do_interface(char * target)
 {
+	echo_off();
 	uint8_t set = 0;
 	do_connect(target);
 	printf("\n%sError: the server at '%s' requires an internal authentication key.%s\n", COLOUR_RED, target, COLOUR_RESET);
+	echo_on();
 	while (!set)
 	{
 		printf("obtain key using brute-force attack? [y/n]: ");

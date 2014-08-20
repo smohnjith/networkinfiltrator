@@ -28,7 +28,6 @@ void acquire_data(void)
 	short mask_length = ((LINES * WIDTH) / LINES) * 2;
 	int longmask_length = (LINES * WIDTH * COLUMNS) / 10;
 	char buf[mask_length * COLUMNS];
-	uint8_t change = 0;
 	int bufcount = 0;
 	int mask[mask_length];
 	int longmask[longmask_length];
@@ -39,10 +38,11 @@ void acquire_data(void)
 	{
 		for (j = 0; j < WIDTH; j++)
 		{
+			uint8_t mask_change = 0;
 			int iter = (i * WIDTH) + j;
 			int x;
-			for (x = 0; x < mask_length; x++) if (mask[x] == iter) change = 1;
-			if (change)
+			for (x = 0; x < mask_length; x++) if (mask[x] == iter) mask_change = 1;
+			if (mask_change)
 			{
 				printf(BG_MAGENTA);
 				for (k = 0; k < COLUMNS; k++)
@@ -54,22 +54,16 @@ void acquire_data(void)
 				}
 				printf(" ");
 				printf(COLOUR_RESET);
-				change = 0;
 			}
 			else
 			{
 				for (k = 0; k < COLUMNS; k++)
 				{
-					for (x = 0; x < longmask_length; x++) if (longmask[x] == (iter + k)) change = 1;
-					if (change)
-					{
-						printf(COLOUR_RESET);
-						change = 0;
-					}
-					else printf(COLOUR_GREEN);
-					printf("%c", rand_range(33, 123));
+					uint8_t longmask_change = 0;
+					for (x = 0; x < longmask_length; x++) if (longmask[x] == (iter + k)) longmask_change = 1;
+					printf("%s%c", longmask_change ?  COLOUR_RESET : COLOUR_GREEN, rand_range(33, 123));
 				}
-				printf(" %s", COLOUR_RESET);
+				write(1, " ", 1);
 			}
 			fflush(stdout);
 		}
