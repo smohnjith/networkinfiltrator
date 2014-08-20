@@ -81,8 +81,7 @@ void do_scan(void)
 			for (k = 0; k < 16; k++)
 			{
 				on = ((scanlines[i][j] >> k) & 0x01) ? 1: 0;
-				if (on) printf(" ");
-				else printf("%c", rand_range(33, 123));
+				printf("%c", on ? ' ' : rand_range(33, 123));
 			}
 		}
 		printf("\n");
