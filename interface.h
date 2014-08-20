@@ -19,6 +19,18 @@
 #ifndef INTERFACE_H_
 #define INTERFACE_H_
 
+#define RESPONSE_N "Are you sure?"
+
+#define RESPONSE_N1 \
+"OK ... I'm confused. Let's start from the beginning.\n\
+Obtain the key, yes or no?"
+
+#define RESPONSE_N2 "OK. Bye then :'("
+
+#define RESPONSE_Y \
+"Yes as in 'yes I'm sure my answer is no'?\n\
+Or yes as in 'yes I want to obtain the key'?"
+
 void do_interface(char * target);
 
 #endif

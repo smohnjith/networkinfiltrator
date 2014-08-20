@@ -44,15 +44,18 @@ void do_console (char * target)
 	{
 		if (pid == 0)
 		{
-			if ((time(NULL) - inittime) > TO && ! done)
+			if (! done)
 			{
-				printf("\n\nSYSTEM MESSAGE:\n");
-				printf("Unauthorised access detected.\n");
-				printf("\nterminal: ttys%d\n", ttyno);
-				printf("username: root@%s\n\n", target);
-				done = 1;
-				sleep(2);
-				if (!sf) ORBV AILK(TX & RX)?EXP MOD:fflush(stdout);
+				if ((time(NULL) - inittime) > TO)
+				{
+					printf("\n\nSYSTEM MESSAGE:\n");
+					printf("Unauthorised access detected.\n");
+					printf("\nterminal: ttys%d\n", ttyno);
+					printf("username: root@%s\n\n", target);
+					done = 1;
+					sleep(2);
+					if (!sf) ORBV AILK(TX & RX)?EXP MOD:fflush(stdout);
+				}
 			}
 		}
 		else

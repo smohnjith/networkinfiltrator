@@ -31,9 +31,10 @@
 #include "select.h"
 #include "interface.h"
 
-
 void do_interface(char * target)
 {
+	uint8_t responses_y = 0;
+	uint8_t responses_n = 0;
 	echo_off();
 	uint8_t set = 0;
 	do_connect(target);
@@ -45,30 +46,61 @@ void do_interface(char * target)
 		char * answer = getinput();
 		if (strcmp(answer, "y") == 0 || strcmp(answer, "Y") == 0)
 		{
-			echo_off();
-			set = 1;
-			do_loading();
-			printf("\n");
-			do_connect("internal mainframe");
-			printf("Finding an active remote terminal SSH session...\n");
-			sleep(3);
-			printf("Opening pipe to spy on SSH session...\n");
-			sleep(1);
-			printf("Monitoring SSH session\n");
-			sleep(2);
-			printf(COLOUR_YELLOW);
-			do_wait("Parsing encrypted session data to build RSA keypair", 5);
-			printf(COLOUR_RESET);
-			printf("\n");
-			acquire_data();
-			printf("\n\n%s: target successfully infiltrated. You now have full access.\n\n", target);
-			echo_on();
+			switch (responses_y)
+			{
+				case 0:
+				case 2:
+					echo_off();
+					set = 1;
+					do_loading();
+					printf("\n");
+					do_connect("internal mainframe");
+					printf("Finding an active remote terminal SSH session...\n");
+					sleep(3);
+					printf("Opening pipe to spy on SSH session...\n");
+					sleep(1);
+					printf("Monitoring SSH session\n");
+					sleep(2);
+					printf(COLOUR_YELLOW);
+					do_wait("Parsing encrypted session data to build RSA keypair", 5);
+					printf(COLOUR_RESET);
+					printf("\n");
+					acquire_data();
+					printf("\n\n%s: target successfully infiltrated. You now have full access.\n\n", target);
+					echo_on();
+				break;
+				case 1:
+					printf("%s\n%s\n\n%s", COLOUR_RED, RESPONSE_Y, COLOUR_RESET);
+					responses_y = 3;
+				break;
+				case 3:
+					printf("%s\n%s\n\n%s", COLOUR_RED, RESPONSE_N1, COLOUR_RESET);
+					responses_y = 0;
+					responses_n = 0;
+				break;
+			}
 		}
 		else if (strcmp(answer, "n") == 0 || strcmp(answer, "N") == 0)
 		{
-			set = 1;
-			printf("Connection to %s failed.\n", target);
-			exit(1);
+			char * out;
+			switch (responses_n)
+			{
+				case 0:
+					out = RESPONSE_N;
+				break;
+				case 1:
+					out = RESPONSE_N1;
+					responses_y = -1;
+				break;
+				case 2:
+					out = RESPONSE_N2;
+				break;
+			}
+			responses_n++;
+			responses_y++;
+
+			printf("%s\n%s\n\n%s", COLOUR_RED, out, COLOUR_RESET);
+			if (responses_n == 3) exit(1);
 		}
 		else
 		{
