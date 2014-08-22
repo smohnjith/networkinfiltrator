@@ -19,17 +19,31 @@
 #ifndef INTERFACE_H_
 #define INTERFACE_H_
 
+#define STATE_INIT 0
+#define STATE_1 1
+#define STATE_2 2
+#define STATE_3 3
+#define STATE_4 4
+#define STATE_END 5
+
 #define RESPONSE_N "Are you sure?"
 
 #define RESPONSE_N1 \
 "OK ... I'm confused. Let's start from the beginning.\n\
-Obtain the key, yes or no?"
+Obtain the authentication key?"
 
-#define RESPONSE_N2 "OK. Bye then :'("
+#define RESPONSE_N2 \
+"Is that 'n' for \" no \" ?\n\
+or is it 'n' for \" 'nuff with the questions already\n\
+and get me that goddamn key \" ?"
+
+#define RESPONSE_N3 \
+"This is going nowhere. Perhaps I'll start from the beginning.\n\
+Obtain the authentication key?"
 
 #define RESPONSE_Y \
-"Yes as in 'yes I'm sure my answer is no'?\n\
-Or yes as in 'yes I want to obtain the key'?"
+"Yes as in 'yes I'm sure my answer is no' ?\n\
+Or yes as in 'yes I want to obtain the key' ?"
 
 void do_interface(char * target);
 

@@ -31,76 +31,95 @@
 #include "select.h"
 #include "interface.h"
 
+void obtain_key(char * target)
+{
+	do_loading();
+	printf("\n");
+	do_connect("internal mainframe");
+	printf("Finding an active remote terminal SSH session...\n");
+	sleep(3);
+	printf("Opening pipe to spy on SSH session...\n");
+	sleep(1);
+	printf("Monitoring SSH session\n");
+	sleep(2);
+	printf(COLOUR_YELLOW);
+	do_wait("Parsing encrypted session data to build RSA keypair", 5);
+	printf(COLOUR_RESET);
+	printf("\n");
+	acquire_data();
+	printf("\n\n%s: target successfully infiltrated. You now have full access.\n\n", target);
+}
+
 void do_interface(char * target)
 {
-	uint8_t responses_y = 0;
-	uint8_t responses_n = 0;
+	uint8_t ystate = STATE_INIT, nstate = STATE_INIT, set = 0;
 	echo_off();
-	uint8_t set = 0;
 	do_connect(target);
-	printf("\n%sError: the server at '%s' requires an internal authentication key.%s\n", COLOUR_RED, target, COLOUR_RESET);
+	printf("\n%sError: the server at '%s' requires an internal authentication key.%s\n\
+	Obtain key using brute force attack?\n", COLOUR_RED, target, COLOUR_RESET);
 	echo_on();
 	while (!set)
 	{
-		printf("obtain key using brute-force attack? [y/n]: ");
+		printf("[y/n]: ");
 		char * answer = getinput();
+		char * out;
 		if (strcmp(answer, "y") == 0 || strcmp(answer, "Y") == 0)
 		{
-			switch (responses_y)
+			switch (ystate)
 			{
-				case 0:
-				case 2:
+				case STATE_INIT:
 					echo_off();
 					set = 1;
-					do_loading();
-					printf("\n");
-					do_connect("internal mainframe");
-					printf("Finding an active remote terminal SSH session...\n");
-					sleep(3);
-					printf("Opening pipe to spy on SSH session...\n");
-					sleep(1);
-					printf("Monitoring SSH session\n");
-					sleep(2);
-					printf(COLOUR_YELLOW);
-					do_wait("Parsing encrypted session data to build RSA keypair", 5);
-					printf(COLOUR_RESET);
-					printf("\n");
-					acquire_data();
-					printf("\n\n%s: target successfully infiltrated. You now have full access.\n\n", target);
+					obtain_key(target);
 					echo_on();
+					ystate = STATE_END;
 				break;
-				case 1:
-					printf("%s\n%s\n\n%s", COLOUR_RED, RESPONSE_Y, COLOUR_RESET);
-					responses_y = 3;
+				case STATE_1:
+					out = RESPONSE_Y;
+					ystate = STATE_3;
+					nstate = STATE_1;
 				break;
-				case 3:
-					printf("%s\n%s\n\n%s", COLOUR_RED, RESPONSE_N1, COLOUR_RESET);
-					responses_y = 0;
-					responses_n = 0;
+				case STATE_3:
+					out = RESPONSE_N1;
+					ystate = STATE_INIT;
+					nstate = STATE_INIT;
+				break;
+				case STATE_4:
+					out = RESPONSE_N3;
+					ystate = STATE_INIT;
+					nstate = STATE_INIT;
 				break;
 			}
+			if (ystate != STATE_END) printf("%s\n%s\n\n%s", COLOUR_RED, out, COLOUR_RESET);
 		}
 		else if (strcmp(answer, "n") == 0 || strcmp(answer, "N") == 0)
 		{
 			char * out;
-			switch (responses_n)
+			switch (nstate)
 			{
-				case 0:
+				case STATE_INIT:
 					out = RESPONSE_N;
+					nstate = STATE_1;
+					ystate = STATE_1;
 				break;
-				case 1:
+				case STATE_1:
 					out = RESPONSE_N1;
-					responses_y = -1;
+					ystate = STATE_INIT;
+					nstate = STATE_2;
 				break;
-				case 2:
+				case STATE_2:
 					out = RESPONSE_N2;
+					nstate = STATE_3;
+					ystate = STATE_4;
+				break;
+				case STATE_3:
+					out = RESPONSE_N3;
+					nstate = STATE_INIT;
+					ystate = STATE_INIT;
 				break;
 			}
-			responses_n++;
-			responses_y++;
 
 			printf("%s\n%s\n\n%s", COLOUR_RED, out, COLOUR_RESET);
-			if (responses_n == 3) exit(1);
 		}
 		else
 		{
