@@ -27,7 +27,7 @@ void ip_usage(void)
 	printf(COLOUR_RED);
 	printf("\nPlease enter an IP address, in the format digit.digit.digit.digit\n");
 	printf("example: 25.126.204.253\n\n");
-	printf("On most Unix-like & Windows systems, you can obtain the IP address associated\n");
+	printf("On most Linux, Unix & Windows systems, you can obtain the IP address associated\n");
 	printf("with a host/domain name using the 'ping' console command.\n");
 	printf("example: ping www.website.com\n");
 	printf(COLOUR_RESET);
@@ -35,10 +35,10 @@ void ip_usage(void)
 
 uint8_t parse_ip(char * ip)
 {
+	uint8_t ret;
 	int length = strlen(ip);
 	if (length < 7)
 	{
-		ip_usage();
 		return 0;
 	}
 	
@@ -57,7 +57,6 @@ uint8_t parse_ip(char * ip)
 			{
 				if (currentchar < 48 || currentchar > 57)
 				{
-					ip_usage();
 					return 0;
 				}
 				i++;
@@ -68,7 +67,6 @@ uint8_t parse_ip(char * ip)
 	p = strchr(p, '.');
 	if (p != NULL)
 	{
-		ip_usage();
 		return 0;
 	}
 	return 1;

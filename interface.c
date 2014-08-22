@@ -55,8 +55,8 @@ void do_interface(char * target)
 	uint8_t ystate = STATE_INIT, nstate = STATE_INIT, set = 0;
 	echo_off();
 	do_connect(target);
-	printf("\n%sError: the server at '%s' requires an internal authentication key.%s\n\
-	Obtain key using brute force attack?\n", COLOUR_RED, target, COLOUR_RESET);
+	printf("\n%sError: the server at '%s' requires an internal authentication key.\n", COLOUR_RED, target);
+	printf("Obtain key using brute force attack?%s\n\n", COLOUR_RESET);
 	echo_on();
 	while (!set)
 	{

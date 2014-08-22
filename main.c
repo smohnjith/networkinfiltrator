@@ -57,6 +57,7 @@ int main (int argc, char * argv[])
 		printf("\n%sEnter target IP address: %s", COLOUR_GREEN, COLOUR_RESET);
 		target = getinput();
 		ipset = parse_ip(target);
+		if (!ipset) ip_usage();
 	}
 	do_interface(target);
 	sleep(5);

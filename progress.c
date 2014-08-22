@@ -52,12 +52,8 @@ void progress_bar (int high, int low)
 		fflush(stdout);
 		length = strlen(frame);
 		usleep(rand_range(high, low));
-		if (on) on = 0;
-		else
-		{
-			count--;
-			on = 1;
-		}
+		count -= on;
+		on = !on;
 		spacecount--;
 		printf("\r");
 		if (i == 100) last = frame;
