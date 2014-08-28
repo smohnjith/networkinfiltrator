@@ -28,8 +28,8 @@
 void progress_bar (int high, int low)
 {
 	short i;
-	short spacecount = 100;
-	short count = 50;
+	short pcount = 100;
+	short spacecount = 50;
 	uint8_t on = 0;
 	printf(COLOUR_YELLOW);
 	char * last;
@@ -38,23 +38,23 @@ void progress_bar (int high, int low)
 		char * frame = malloc(60);
 		char * percentage = malloc(9);
 		short j, length;
-		short n = 50 - count;
-		sprintf(percentage, "] : %d%%", 100 - spacecount);
+		short n = 50 - spacecount;
+		sprintf(percentage, "] : %d%%", 100 - pcount);
 		strcat(frame, "[ ");
 		for (j = 0; j <= n; j++) 
 		{
 			if (j < n) strcat(frame, "=");
 			else if (j == n) strcat(frame, ">");
 		}
-		for (j = 0; j < count; j++) strcat(frame, " ");
+		for (j = 0; j < spacecount; j++) strcat(frame, " ");
 		strcat(frame, percentage);
 		printf("%s", frame);
 		fflush(stdout);
 		length = strlen(frame);
 		usleep(rand_range(high, low));
-		count -= on;
+		spacecount -= on;
 		on = !on;
-		spacecount--;
+		pcount--;
 		printf("\r");
 		if (i == 100) last = frame;
 		free(frame);
